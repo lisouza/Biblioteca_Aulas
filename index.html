@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Biblioteca de Aulas</title>
+<style>
+:root{--bg:#faf6fb;--surface:#fff;--text:#2a2030;--muted:#7a6b80;--line:#eadcee;--accent:#7b5282;--accent-t:#fff;--brand:#a47dab;--tint:#f3eaf5;--chip:#f1e6f4;--danger:#b4412f;--shadow:0 8px 28px rgba(123,82,130,.14);--hero:linear-gradient(135deg,#bb98c1 0%,#a47dab 45%,#7b5282 100%);color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#171119;--surface:#231a27;--text:#f1eaf3;--muted:#b0a1b6;--line:#392c3f;--accent:#c9a6cf;--accent-t:#1d1220;--tint:#30223a;--chip:#2d2132;--danger:#e8806e;--shadow:0 8px 28px rgba(0,0,0,.4);--hero:linear-gradient(135deg,#6b4a73 0%,#52365a 55%,#3a2640 100%);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#171119;--surface:#231a27;--text:#f1eaf3;--muted:#b0a1b6;--line:#392c3f;--accent:#c9a6cf;--accent-t:#1d1220;--tint:#30223a;--chip:#2d2132;--danger:#e8806e;--shadow:0 8px 28px rgba(0,0,0,.4);--hero:linear-gradient(135deg,#6b4a73 0%,#52365a 55%,#3a2640 100%);color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif}
+.hero{background:var(--hero);color:#fff;padding:34px 16px 70px;border-radius:0 0 32px 32px}
+.hw{max-width:980px;margin:0 auto}
+h1{font-size:2rem;font-weight:800;letter-spacing:-.02em;margin:0 0 4px}
+.sub{margin:0 0 20px;opacity:.9;font-size:.98rem;max-width:560px}
+button,input,select,textarea{font:inherit;color:var(--text)}
+.bar{display:flex;gap:10px;flex-wrap:wrap}
+.bar input[type=search]{flex:1 1 240px;border:0;border-radius:14px;padding:13px 16px;box-shadow:0 6px 20px rgba(0,0,0,.14)}
+main{max-width:980px;margin:-40px auto 0;padding:0 16px 48px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:6px 18px 12px;box-shadow:var(--shadow)}
+input,select,textarea{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.btn{background:var(--accent);color:var(--accent-t);border:0;border-radius:12px;padding:11px 18px;cursor:pointer;font-weight:700;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn.light{background:#fff;color:#6a4471;box-shadow:0 6px 20px rgba(0,0,0,.14)}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 6px}
+.chip{background:var(--chip);border:1px solid transparent;border-radius:999px;padding:6px 14px;cursor:pointer;font-size:.88rem;font-weight:500;transition:background .15s}
+.chip:hover{border-color:var(--brand)}
+.chip.on{background:var(--accent);color:var(--accent-t);font-weight:700}
+.chip small{opacity:.7;margin-left:6px}
+.lbl{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-top:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:20px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:8px;transition:transform .18s,box-shadow .18s}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.top{display:flex;gap:12px;align-items:flex-start}
+.ico{flex:none;width:44px;height:44px;border-radius:13px;background:var(--tint);display:grid;place-items:center;font-size:1.35rem}
+.card h3{margin:0;font-size:1.05rem;line-height:1.3;font-weight:700}
+.meta{font-size:.78rem;color:var(--muted);font-weight:600}
+.notes{font-size:.9rem;margin:0;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--muted)}
+.tags span{display:inline-block;background:var(--tint);color:var(--accent);border-radius:8px;padding:2px 9px;margin:0 5px 5px 0;font-size:.76rem;font-weight:600}
+.acts{display:flex;gap:14px;margin-top:auto;padding-top:8px;border-top:1px solid var(--line);font-size:.88rem;font-weight:600}
+.acts a,.acts button{background:none;border:0;padding:0;cursor:pointer;color:var(--accent);text-decoration:none}
+.acts a:hover,.acts button:hover{text-decoration:underline}
+.acts .del{color:var(--danger);margin-left:auto}
+.empty{color:var(--muted);text-align:center;padding:48px 8px}
+dialog{border:1px solid var(--line);border-radius:20px;background:var(--surface);color:var(--text);width:min(520px,94vw);padding:22px;box-shadow:var(--shadow)}
+dialog::backdrop{background:rgba(40,20,48,.5);backdrop-filter:blur(3px)}
+.f{display:grid;gap:12px}
+.f label{font-size:.82rem;font-weight:700;display:grid;gap:5px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.end{display:flex;gap:8px;justify-content:flex-end;margin-top:4px}
+.foot{margin-top:26px;color:var(--muted);font-size:.8rem;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+</style>
+</head>
+<body>
+<header class="hero"><div class="hw">
+<h1>Biblioteca de Aulas</h1>
+<p class="sub">Guarde o link de cada material (Drive, YouTube, OneDrive…) e encontre tudo por matéria, tipo ou palavra-chave.</p>
+<div class="bar">
+<input type="search" id="q" placeholder="Buscar por título, tag, matéria ou anotação…" aria-label="Buscar">
+<button class="btn light" id="add">+ Novo material</button>
+</div>
+</div></header>
+<main>
+<section class="panel">
+<div class="lbl">Matérias</div><div class="chips" id="subjects"></div>
+<div class="lbl">Tipo</div><div class="chips" id="types"></div>
+</section>
+<div class="grid" id="list"></div>
+
+<div class="foot">
+<span id="count"></span>
+<button class="btn ghost" id="exp">Exportar backup</button>
+<button class="btn ghost" id="imp">Importar backup</button>
+<input type="file" id="file" accept="application/json" hidden>
+</div>
+<p class="foot">Os dados ficam salvos neste navegador. Exporte um backup de vez em quando para não perder nada.</p>
+</main>
+
+<dialog id="dlg">
+<form class="f" id="form" method="dialog" onsubmit="return false">
+<label>Título<input id="fTitle" required maxlength="120" placeholder="Ex.: Slides – Aula 3 – Conciliação bancária"></label>
+<div class="row">
+<label>Matéria<input id="fSubject" list="subjList" required maxlength="60" placeholder="Ex.: Rotinas financeiras"><datalist id="subjList"></datalist></label>
+<label>Tipo<select id="fType"></select></label>
+</div>
+<label>Link do material<input id="fUrl" type="url" placeholder="https://…"></label>
+<label>Tags (separe por vírgula)<input id="fTags" placeholder="prova, unidade 2, revisão"></label>
+<label>Anotações<textarea id="fNotes" rows="3" placeholder="Observações, quando usar, nome do arquivo no computador…"></textarea></label>
+<div class="end"><button type="button" class="btn ghost" id="cancel">Cancelar</button><button type="button" class="btn" id="save">Salvar</button></div>
+</form>
+</dialog>
+
+<script>
+const TYPES={slide:['📊','Slides'],pdf:['📄','PDF'],video:['🎬','Vídeo'],plano:['🗓️','Plano de aula'],exercicio:['✏️','Exercícios'],outro:['📎','Outro']};
+const KEY='biblioteca-aulas-v1';
+let items=[],fSub='',fType='',editId=null;
+const $=id=>document.getElementById(id);
+function load(){try{items=JSON.parse(localStorage.getItem(KEY)||'[]');if(!Array.isArray(items))items=[]}catch(e){items=[]}}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(items))}catch(e){alert('Não foi possível salvar neste navegador. Exporte um backup.')}}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function norm(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')}
+function safeUrl(u){try{const x=new URL(u);return /^https?:$/.test(x.protocol)?x.href:''}catch(e){return ''}}
+
+function chips(el,entries,cur,set){
+ el.innerHTML='';
+ entries.forEach(([val,label,n])=>{
+  const b=document.createElement('button');b.type='button';b.className='chip'+(cur===val?' on':'');
+  b.innerHTML=esc(label)+(n!=null?'<small>'+n+'</small>':'');
+  b.onclick=()=>{set(val);render()};el.appendChild(b)});
+}
+function render(){
+ const q=norm($('q').value).split(/\s+/).filter(Boolean);
+ const subs={};items.forEach(i=>subs[i.subject]=(subs[i.subject]||0)+1);
+ chips($('subjects'),[['','Todas',items.length]].concat(Object.keys(subs).sort((a,b)=>a.localeCompare(b,'pt')).map(s=>[s,s,subs[s]])),fSub,v=>fSub=v);
+ chips($('types'),[['','Todos']].concat(Object.entries(TYPES).map(([k,v])=>[k,v[0]+' '+v[1]])),fType,v=>fType=v);
+ $('subjList').innerHTML=Object.keys(subs).map(s=>'<option value="'+esc(s)+'">').join('');
+ const res=items.filter(i=>(!fSub||i.subject===fSub)&&(!fType||i.type===fType)&&q.every(w=>norm([i.title,i.subject,i.tags.join(' '),i.notes,TYPES[i.type][1]].join(' ')).includes(w)))
+  .sort((a,b)=>b.date-a.date);
+ $('count').textContent=res.length+' de '+items.length+' materiais';
+ $('list').innerHTML=res.length?res.map(i=>{
+  const u=safeUrl(i.url),t=TYPES[i.type]||TYPES.outro;
+  return '<article class="card"><div class="top"><span class="ico">'+t[0]+'</span><div><div class="meta">'+t[1]+' · '+esc(i.subject)+'</div><h3>'+esc(i.title)+'</h3></div></div>'
+  +(i.notes?'<p class="notes">'+esc(i.notes)+'</p>':'')
+  +(i.tags.length?'<div class="tags">'+i.tags.map(x=>'<span>#'+esc(x)+'</span>').join('')+'</div>':'')
+  +'<div class="acts">'+(u?'<a href="'+esc(u)+'" target="_blank" rel="noopener noreferrer">Abrir</a>':'')
+  +'<button data-e="'+i.id+'">Editar</button><button class="del" data-d="'+i.id+'">Excluir</button></div></article>'}).join('')
+  :'<div class="empty" style="grid-column:1/-1">'+(items.length?'Nada encontrado com esses filtros.':'Sua biblioteca está vazia. Clique em “+ Novo material” para começar.')+'</div>';
+}
+$('list').onclick=e=>{
+ const d=e.target.dataset;
+ if(d.e)openForm(d.e);
+ if(d.d&&confirm('Excluir este material?')){items=items.filter(i=>i.id!==d.d);persist();render()}
+};
+function openForm(id){
+ editId=id||null;const i=id?items.find(x=>x.id===id):null;
+ $('fTitle').value=i?i.title:'';$('fSubject').value=i?i.subject:fSub;
+ $('fType').value=i?i.type:(fType||'slide');$('fUrl').value=i?i.url:'';
+ $('fTags').value=i?i.tags.join(', '):'';$('fNotes').value=i?i.notes:'';
+ $('dlg').showModal();$('fTitle').focus();
+}
+$('fType').innerHTML=Object.entries(TYPES).map(([k,v])=>'<option value="'+k+'">'+v[0]+' '+v[1]+'</option>').join('');
+$('add').onclick=()=>openForm();
+$('cancel').onclick=()=>$('dlg').close();
+$('save').onclick=()=>{
+ const title=$('fTitle').value.trim(),subject=$('fSubject').value.trim();
+ if(!title||!subject){alert('Preencha o título e a matéria.');return}
+ const url=$('fUrl').value.trim();
+ if(url&&!safeUrl(url)){alert('O link precisa começar com http:// ou https://');return}
+ const rec={id:editId||String(Date.now())+Math.random().toString(36).slice(2,6),title,subject,type:$('fType').value,url,
+  tags:$('fTags').value.split(',').map(s=>s.trim()).filter(Boolean),notes:$('fNotes').value.trim(),date:Date.now()};
+ if(editId){const k=items.findIndex(x=>x.id===editId);rec.date=items[k].date;items[k]=rec}else items.push(rec);
+ persist();$('dlg').close();render();
+};
+$('q').oninput=render;
+$('exp').onclick=()=>{
+ const a=document.createElement('a');
+ a.href='data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify(items,null,2));
+ a.download='biblioteca-de-aulas.json';document.body.appendChild(a);a.click();a.remove();
+};
+$('imp').onclick=()=>$('file').click();
+$('file').onchange=e=>{
+ const f=e.target.files[0];if(!f)return;
+ const r=new FileReader();
+ r.onload=()=>{try{
+  const data=JSON.parse(r.result);if(!Array.isArray(data))throw 0;
+  const ids=new Set(items.map(i=>i.id));let n=0;
+  data.forEach(i=>{if(i&&i.title&&i.subject&&!ids.has(i.id)){items.push({id:String(i.id||Date.now()+Math.random()),title:String(i.title),subject:String(i.subject),type:TYPES[i.type]?i.type:'outro',url:String(i.url||''),tags:Array.isArray(i.tags)?i.tags.map(String):[],notes:String(i.notes||''),date:+i.date||Date.now()});n++}});
+  persist();render();alert(n+' materiais importados.');
+ }catch(x){alert('Arquivo de backup inválido.')}};
+ r.readAsText(f);e.target.value='';
+};
+load();render();
+</script>
+</body>
+</html>
